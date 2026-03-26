@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="description" content="DramaLuxe — Central de Dramas Asiáticos. C-Drama, K-Drama, J-Drama, Thai-Drama legendados em português.">
+<title>DramaLuxe 🎬</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<!-- ═══════ TOP HEADER ═══════ -->
+<header class="top-header">
+  <div class="logo">
+    <div class="logo-icon"><i class="fas fa-play"></i></div>
+    DramaLuxe
+  </div>
+  <div id="navProfileAvatar" class="nav-profile-btn" title="Trocar Perfil" onclick="showProfileMenu()">
+    <i class="fas fa-user" style="font-size:.8rem;color:var(--text3)"></i>
+  </div>
+  <!-- Profile menu dropdown -->
+  <div id="profileMenuDrop" class="profile-menu-drop" style="display:none">
+    <button onclick="Profiles.showSelect();closeProfileMenu()"><i class="fas fa-users"></i> Trocar Perfil</button>
+    <button onclick="showWelcomeAgain()"><i class="fab fa-google"></i> Entrar com Google</button>
+    <button onclick="closeProfileMenu()"><i class="fas fa-times"></i> Fechar</button>
+  </div>
+  <div class="header-actions">
+    <button class="icon-btn" id="searchToggleBtn" title="Buscar"><i class="fas fa-search"></i></button>
+    <button class="icon-btn" id="filterToggleBtn" title="Filtros"><i class="fas fa-sliders-h"></i></button>
+    <button class="icon-btn" id="adminSearchBtn" title="Buscar novos vídeos" onclick="AdminSearch.open()"><i class="fas fa-plus-circle"></i></button>
+  </div>
+</header>
+
+<!-- ═══════ HOME ═══════ -->
+<div class="screen active" id="screenHome">
+
+  <!-- Busca -->
+  <div class="search-wrap" id="searchWrap">
+    <div class="search-inner">
+      <i class="fas fa-search"></i>
+      <input type="search" id="searchInput" placeholder="Buscar dramas, filmes, atores…" autocomplete="off">
+    </div>
+  </div>
+
+  <!-- Hero carousel -->
+  <div class="hero" id="heroSection">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge"><i class="fas fa-fire"></i> Em Destaque</div>
+      <div class="hero-title" id="heroTitle">Carregando…</div>
+      <div class="hero-desc"  id="heroDesc"></div>
+      <div class="hero-meta"  id="heroMeta"></div>
+      <div class="hero-actions">
+        <button class="btn-play" id="heroPlayBtn"><i class="fas fa-play"></i> Assistir</button>
+        <button class="btn-info" id="heroInfoBtn"><i class="fas fa-info-circle"></i> Detalhes</button>
+      </div>
+    </div>
+  </div>
+  <div class="hero-dots" id="heroDots"></div>
+
+  <!-- Filtros (painel expansível) -->
+  <div id="filtersPanel" style="display:none">
+    <div class="filter-section">
+      <div class="filter-label">Região</div>
+      <div class="chips-row" id="chipRegion">
+        <button class="chip active" data-val="all"><i class="fas fa-globe"></i> Todos</button>
+        <button class="chip" data-val="c-drama">🐉 C-Drama</button>
+        <button class="chip" data-val="k-drama">⭐ K-Drama</button>
+        <button class="chip" data-val="j-drama">🌸 J-Drama</button>
+        <button class="chip" data-val="thai-drama">🌴 Thai-Drama</button>
+      </div>
+      <div class="filter-label">Tipo</div>
+      <div class="chips-row" id="chipType">
+        <button class="chip active" data-val="all"><i class="fas fa-list"></i> Todos</button>
+        <button class="chip" data-val="series"><i class="fas fa-tv"></i> Série</button>
+        <button class="chip" data-val="movie"><i class="fas fa-film"></i> Filme</button>
+      </div>
+      <div class="filter-label">Gênero</div>
+      <div class="chips-row" id="chipGenre">
+        <button class="chip active" data-val="all"><i class="fas fa-heart"></i> Todos</button>
+        <button class="chip" data-val="romance">💕 Romance</button>
+        <button class="chip" data-val="fantasy">✨ Fantasia</button>
+        <button class="chip" data-val="drama"><i class="fas fa-mask"></i> Drama</button>
+        <button class="chip" data-val="comedy">😄 Comédia</button>
+        <button class="chip" data-val="action">⚡ Ação</button>
+      </div>
+      <div class="filter-label">Áudio</div>
+      <div class="chips-row" id="chipAudio">
+        <button class="chip active" data-val="all"><i class="fas fa-globe"></i> Todos</button>
+        <button class="chip" data-val="dubbed">🎙 Dublado PT-BR</button>
+        <button class="chip" data-val="subbed">📝 Legendado PT-BR</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Conteúdo dinâmico -->
+  <div id="homeContent"></div>
+</div>
+
+<!-- ═══════ FAVORITOS ═══════ -->
+<div class="screen" id="screenFavorites">
+  <div class="screen-header">
+    <h2>❤️ Favoritos</h2>
+  </div>
+  <div class="main-grid" id="favGrid"></div>
+</div>
+
+<!-- ═══════ HISTÓRICO ═══════ -->
+<div class="screen" id="screenHistory">
+  <div class="screen-header">
+    <h2>📜 Histórico</h2>
+    <button class="clear-btn" id="clearHistoryBtn"><i class="fas fa-trash-alt"></i> Limpar</button>
+  </div>
+  <div class="main-grid" id="historyGrid"></div>
+</div>
+
+<!-- ═══════ SOBRE ═══════ -->
+<div class="screen" id="screenAbout">
+  <div class="about-screen">
+    <div class="about-card">
+      <div class="about-logo-big">DramaLuxe</div>
+      <div class="about-tagline">Central de Dramas Asiáticos · Sua plataforma pessoal</div>
+      <div class="about-divider"></div>
+      <div class="about-people">
+        <div class="about-person">
+          <div class="about-person-icon">👑</div>
+          <div><div class="about-person-name">Saieso Seraos</div><div class="about-person-role">Criador &amp; Desenvolvedor</div></div>
+        </div>
+        <div class="about-person">
+          <div class="about-person-icon">💜</div>
+          <div><div class="about-person-name">Eliene LBS</div><div class="about-person-role">Em homenagem especial</div></div>
+        </div>
+        <div class="about-person">
+          <div class="about-person-icon">⭐</div>
+          <div><div class="about-person-name">Lorhuan LBS</div><div class="about-person-role">Em homenagem especial</div></div>
+        </div>
+        <div class="about-person">
+          <div class="about-person-icon">🌟</div>
+          <div><div class="about-person-name">Oliver LBS</div><div class="about-person-role">Em homenagem especial</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-row" id="statsRow"></div>
+
+    <!-- Plataformas suportadas -->
+    <div class="about-card" style="text-align:left;margin-bottom:1rem;">
+      <div style="font-size:.8rem;font-weight:700;margin-bottom:.7rem;color:var(--text2);">📡 Plataformas Suportadas</div>
+      <div class="plat-grid">
+        <div class="plat-card"><div class="plat-dot" style="background:#ff0000"></div><div><div class="plat-name">YouTube</div><div class="plat-desc">Canais PT-BR oficiais</div></div></div>
+        <div class="plat-card"><div class="plat-dot" style="background:#f7931e"></div><div><div class="plat-name">OK.ru</div><div class="plat-desc">Grande acervo asiático</div></div></div>
+        <div class="plat-card"><div class="plat-dot" style="background:#0066DC"></div><div><div class="plat-name">Dailymotion</div><div class="plat-desc">Dramas legendados</div></div></div>
+        <div class="plat-card"><div class="plat-dot" style="background:#00a1d6"></div><div><div class="plat-name">Bilibili</div><div class="plat-desc">C-Dramas oficiais</div></div></div>
+      </div>
+    </div>
+
+    <div class="about-card" style="text-align:left">
+      <p style="font-size:.78rem;color:var(--text2);line-height:1.7;margin-bottom:.5rem;">
+        🎬 <strong>DramaLuxe</strong> é uma plataforma de streaming pessoal para dramas asiáticos com C-Drama, K-Drama, J-Drama e Thai-Drama.
+      </p>
+      <p style="font-size:.78rem;color:var(--text2);line-height:1.7;margin-bottom:.5rem;">
+        💾 Histórico · ❤️ Favoritos · ⭐ Avaliações · ▶ Continue Assistindo — tudo salvo localmente no dispositivo.
+      </p>
+      <p style="font-size:.78rem;color:var(--text2);line-height:1.7;">
+        📱 Instalável como app (PWA) · Funciona offline após o primeiro acesso.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ BOTTOM NAV ═══════ -->
+<nav class="bottom-nav">
+  <button class="nav-item active" data-screen="screenHome">
+    <span class="nav-icon"><i class="fas fa-home"></i></span>
+    <span class="nav-label">Início</span>
+  </button>
+  <button class="nav-item" data-screen="screenFavorites">
+    <span class="nav-icon"><i class="fas fa-heart"></i></span>
+    <span class="nav-label">Favoritos</span>
+  </button>
+  <button class="nav-item" data-screen="screenHistory">
+    <span class="nav-icon"><i class="fas fa-history"></i></span>
+    <span class="nav-label">Histórico</span>
+  </button>
+  <button class="nav-item" data-screen="screenAbout">
+    <span class="nav-icon"><i class="fas fa-info-circle"></i></span>
+    <span class="nav-label">Sobre</span>
+  </button>
+</nav>
+
+<!-- ═══════ PLAYER MODAL ═══════ -->
+<div class="modal-wrap" id="playerModal">
+  <div class="modal-video-area">
+    <div class="vwrap" id="vwrap"></div>
+  </div>
+  <div class="modal-info">
+    <div class="modal-close-row">
+      <button class="modal-back" id="modalCloseBtn"><i class="fas fa-chevron-down"></i> Fechar</button>
+      <button class="modal-fs-btn" id="fsBtn" title="Tela cheia"><i class="fas fa-expand"></i></button>
+    </div>
+    <div class="modal-title"    id="modalTitle"></div>
+    <div class="modal-subtitle" id="modalSubtitle"></div>
+    <div class="modal-desc"     id="modalDescText" style="display:none"></div>
+    <div class="ep-nav"         id="modalEpNav"></div>
+    <div                        id="modalEpList"></div>
+  </div>
+</div>
+
+<!-- ═══════ DETAIL OVERLAY (Netflix-style) ═══════ -->
+<div class="detail-overlay" id="detailOverlay">
+  <div class="detail-content" id="detailContent"></div>
+</div>
+
+<!-- ═══════ SCRIPTS ═══════ -->
+<script src="js/app.js"></script>
+<script src="js/catalog.js"></script>
+<script src="js/player.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/avatars.js"></script>
+<script src="js/profiles.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/welcome.js"></script>
+<script src="js/admin-search.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+
+  /* ── Static events ── */
+  const clearBtn = document.getElementById('clearHistoryBtn');
+  if (clearBtn) clearBtn.onclick = () => {
+    if (confirm('Limpar todo o histórico?')) History.clear();
+  };
+  const detailOv = document.getElementById('detailOverlay');
+  if (detailOv) detailOv.onclick = e => {
+    if (e.target.id === 'detailOverlay') UI.closeDetailScreen();
+  };
+
+  /* ── Launch app ── */
+  function launchApp() {
+    try { Profiles.updateNavAvatar(); } catch(e){}
+    try { App.init(); } catch(e){ console.error('App.init error:', e); }
+  }
+
+  /* ── Profile selected callback ── */
+  Profiles.onSelect(() => launchApp());
+
+  /* ── Init auth + profiles ── */
+  Profiles.init();
+  try { await Auth.init(); } catch(e){}
+
+  const hasProfile   = Profiles.getAll().length > 0;
+  const hasActive    = !!Profiles.getActive();
+  const isLoggedIn   = Auth.isLoggedIn();
+  const skipWelcome  = Storage.get('skip_welcome_logged');
+
+  // Callback após fechar tela de boas-vindas
+  function afterWelcome() {
+    let tries = 0;
+    const wait = setInterval(() => {
+      tries++;
+      if (Profiles.getActive()) {
+        clearInterval(wait);
+        launchApp();
+      } else if (tries > 80) {
+        clearInterval(wait);
+        launchApp();
+      }
+    }, 100);
+  }
+
+  if (isLoggedIn && hasProfile && hasActive) {
+    // Usuário logado com Firebase + perfil ativo → vai direto
+    Storage.set('skip_welcome_logged', true);
+    launchApp();
+  } else if (isLoggedIn && hasProfile && !hasActive) {
+    // Logado mas sem perfil ativo → tela de perfis
+    Profiles.showSelect();
+  } else if (!isLoggedIn && hasProfile && hasActive && skipWelcome) {
+    // Convidado que já configurou tudo → vai direto
+    launchApp();
+  } else {
+    // Qualquer outro caso → mostra tela de boas-vindas com login Google
+    Storage.del('skip_welcome_logged');
+    Welcome.show(afterWelcome);
+  }
+});
+</script>
+</body>
+</html>

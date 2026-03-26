@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DramaLuxe — Guia Completo de Manutenção</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #0f0f1a; color: #e2e8f0; line-height: 1.7; }
+  .container { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+  h1 { font-size: 2rem; color: #a855f7; text-align: center; margin-bottom: 0.3rem; }
+  .subtitle { text-align: center; color: #94a3b8; margin-bottom: 2.5rem; font-size: 0.95rem; }
+
+  h2 { font-size: 1.3rem; color: #c084fc; margin: 2.5rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #2d2d4e; }
+  h3 { font-size: 1rem; color: #e2e8f0; margin: 1.5rem 0 0.5rem; }
+
+  .card { background: #1a1a2e; border: 1px solid #2d2d4e; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .card.warning { border-color: #f59e0b; background: #1a1500; }
+  .card.success { border-color: #10b981; background: #001a0e; }
+  .card.info    { border-color: #3b82f6; background: #00061a; }
+
+  .step { display: flex; gap: 1rem; margin-bottom: 1rem; align-items: flex-start; }
+  .step-num { background: #7c3aed; color: #fff; font-weight: bold; border-radius: 50%; width: 28px; height: 28px; min-width: 28px; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; margin-top: 2px; }
+  .step-body { flex: 1; }
+
+  code { background: #0d0d1f; border: 1px solid #3d3d6b; border-radius: 6px; padding: 0.15rem 0.5rem; font-family: 'Courier New', monospace; font-size: 0.88rem; color: #a5f3fc; word-break: break-all; }
+  pre  { background: #0d0d1f; border: 1px solid #3d3d6b; border-radius: 8px; padding: 1rem; overflow-x: auto; font-size: 0.85rem; color: #a5f3fc; margin: 0.75rem 0; line-height: 1.6; }
+  pre .comment { color: #6b7280; }
+  pre .key     { color: #f472b6; }
+  pre .val     { color: #86efac; }
+  pre .str     { color: #fde68a; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin: 0.75rem 0; }
+  th { background: #2d2d4e; color: #c084fc; padding: 0.5rem 0.75rem; text-align: left; }
+  td { border-bottom: 1px solid #1e1e3a; padding: 0.5rem 0.75rem; color: #cbd5e1; }
+  td code { font-size: 0.8rem; }
+  tr:hover td { background: #1a1a2e; }
+
+  a { color: #818cf8; text-decoration: none; }
+  a:hover { text-decoration: underline; color: #a5b4fc; }
+
+  .tag { display: inline-block; background: #2d2d4e; border-radius: 4px; padding: 0.1rem 0.5rem; font-size: 0.78rem; color: #94a3b8; margin: 0.1rem; }
+  .tag.dubbed  { background: #1a0a2e; color: #c084fc; }
+  .tag.subbed  { background: #0a1a10; color: #34d399; }
+  .tag.remove  { background: #1a0000; color: #f87171; }
+  .tag.new     { background: #001a0a; color: #4ade80; }
+
+  .emoji { font-size: 1.2rem; margin-right: 0.4rem; }
+  ul { padding-left: 1.5rem; }
+  li { margin-bottom: 0.4rem; color: #cbd5e1; }
+  p  { margin-bottom: 0.75rem; color: #cbd5e1; }
+
+  .highlight { color: #fde68a; font-weight: bold; }
+  .purple { color: #c084fc; }
+  .green  { color: #4ade80; }
+  .red    { color: #f87171; }
+  .blue   { color: #60a5fa; }
+
+  .divider { border: none; border-top: 1px solid #2d2d4e; margin: 2rem 0; }
+  .toc { background: #12122a; border: 1px solid #2d2d4e; border-radius: 10px; padding: 1.2rem 1.5rem; margin-bottom: 2rem; }
+  .toc ol { padding-left: 1.2rem; }
+  .toc li { margin-bottom: 0.3rem; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1>🎬 DramaLuxe</h1>
+  <p class="subtitle">Guia Completo — Como Adicionar Vídeos, Imagens e Manter o Catálogo</p>
+
+  <div class="toc">
+    <h3>📋 Índice</h3>
+    <ol>
+      <li><a href="#sites">Sites Usados para Buscar Conteúdo</a></li>
+      <li><a href="#images">Como Adicionar Imagens (Thumbs)</a></li>
+      <li><a href="#videos">Como Adicionar Novos Vídeos ao Catálogo</a></li>
+      <li><a href="#template-serie">Modelo Pronto — Nova Série</a></li>
+      <li><a href="#template-filme">Modelo Pronto — Novo Filme</a></li>
+      <li><a href="#publish">Como Publicar no GitHub</a></li>
+      <li><a href="#checklist">Checklist Rápido</a></li>
+    </ol>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <h2 id="sites">🌐 1. Sites Usados para Buscar Conteúdo</h2>
+
+  <div class="card info">
+    <h3>Plataformas de Vídeo (onde buscar os episódios)</h3>
+    <table>
+      <tr><th>Site</th><th>Link</th><th>Tipo</th><th>Formato</th></tr>
+      <tr>
+        <td>WeTV Portuguese</td>
+        <td><a href="https://www.youtube.com/@WeTVPortuguese" target="_blank">youtube.com/@WeTVPortuguese</a></td>
+        <td><span class="tag subbed">Legendado</span></td>
+        <td>C-Drama, K-Drama</td>
+      </tr>
+      <tr>
+        <td>YoYo Teatro Portuguesa</td>
+        <td><a href="https://www.youtube.com/@YoYoPortuguese" target="_blank">youtube.com/@YoYoPortuguese</a></td>
+        <td><span class="tag subbed">Legendado</span></td>
+        <td>C-Drama</td>
+      </tr>
+      <tr>
+        <td>iQIYI Portuguese</td>
+        <td><a href="https://www.youtube.com/@iqiyiportuguese" target="_blank">youtube.com/@iqiyiportuguese</a></td>
+        <td><span class="tag dubbed">Dublado</span></td>
+        <td>C-Drama</td>
+      </tr>
+      <tr>
+        <td>Mango TV Portuguese</td>
+        <td><a href="https://www.youtube.com/@MangoTVPortuguese" target="_blank">youtube.com/@MangoTVPortuguese</a></td>
+        <td><span class="tag subbed">Legendado</span></td>
+        <td>C-Drama</td>
+      </tr>
+      <tr>
+        <td>MBC Drama</td>
+        <td><a href="https://www.youtube.com/@MBCdrama" target="_blank">youtube.com/@MBCdrama</a></td>
+        <td><span class="tag subbed">Legendado</span></td>
+        <td>K-Drama</td>
+      </tr>
+      <tr>
+        <td>SBS Drama</td>
+        <td><a href="https://www.youtube.com/@SBSdrama" target="_blank">youtube.com/@SBSdrama</a></td>
+        <td><span class="tag subbed">Legendado</span></td>
+        <td>K-Drama</td>
+      </tr>
+      <tr>
+        <td>GMMTV</td>
+        <td><a href="https://www.youtube.com/@GMMTV" target="_blank">youtube.com/@GMMTV</a></td>
+        <td><span class="tag subbed">Legendado</span></td>
+        <td>Thai-Drama</td>
+      </tr>
+      <tr>
+        <td>OK.ru (para K-Dramas completos)</td>
+        <td><a href="https://ok.ru/video" target="_blank">ok.ru/video</a></td>
+        <td><span class="tag subbed">Legendado</span></td>
+        <td>K-Drama, C-Drama</td>
+      </tr>
+      <tr>
+        <td>Bilibili (international)</td>
+        <td><a href="https://www.bilibili.tv/pt" target="_blank">bilibili.tv</a></td>
+        <td><span class="tag subbed">Legendado</span></td>
+        <td>C-Drama, J-Drama</td>
+      </tr>
+      <tr>
+        <td>Dailymotion</td>
+        <td><a href="https://www.dailymotion.com" target="_blank">dailymotion.com</a></td>
+        <td><span class="tag subbed">Legendado</span></td>
+        <td>Todos</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="card info">
+    <h3>Sites de Referência (para buscar informações dos dramas)</h3>
+    <table>
+      <tr><th>Site</th><th>Link</th><th>Uso</th></tr>
+      <tr>
+        <td>MyDramaList</td>
+        <td><a href="https://mydramalist.com" target="_blank">mydramalist.com</a></td>
+        <td>Sinopses, elenco, avaliações, posters</td>
+      </tr>
+      <tr>
+        <td>TMDB</td>
+        <td><a href="https://www.themoviedb.org" target="_blank">themoviedb.org</a></td>
+        <td>Posters, backdrops, IDs para o script de download</td>
+      </tr>
+      <tr>
+        <td>AsianWiki</td>
+        <td><a href="https://asianwiki.com" target="_blank">asianwiki.com</a></td>
+        <td>Informações detalhadas de dramas asiáticos</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <h2 id="images">🖼️ 2. Como Adicionar Imagens (Thumbs)</h2>
+
+  <div class="card">
+    <p><strong class="purple">Onde ficam as imagens:</strong> pasta <code>assets/thumbs/</code> no repositório GitHub</p>
+    <p><strong class="purple">Formato aceito:</strong> <code>.jpg</code> ou <code>.svg</code></p>
+    <p><strong class="purple">Tamanho ideal:</strong> <code>320 × 180 px</code> (proporção 16:9)</p>
+    <p><strong class="purple">Tamanho máximo:</strong> 200KB por arquivo</p>
+  </div>
+
+  <h3>Passo a passo — Adicionar imagem pelo GitHub</h3>
+
+  <div class="step"><div class="step-num">1</div><div class="step-body">
+    Acesse o repositório: <a href="https://github.com/ossluz/Dramaluxe" target="_blank"><strong>github.com/ossluz/Dramaluxe</strong></a>
+  </div></div>
+
+  <div class="step"><div class="step-num">2</div><div class="step-body">
+    Clique na pasta <code>assets</code> → depois em <code>thumbs</code>
+  </div></div>
+
+  <div class="step"><div class="step-num">3</div><div class="step-body">
+    Clique em <strong>"Add file"</strong> → <strong>"Upload files"</strong>
+  </div></div>
+
+  <div class="step"><div class="step-num">4</div><div class="step-body">
+    Arraste a imagem para a área indicada. O nome do arquivo <span class="highlight">deve ser exatamente igual</span> ao que está no catálogo. Por exemplo, se o catálogo diz <code>thumb:'assets/thumbs/nirvana-in-fire.jpg'</code>, o arquivo deve se chamar <code>nirvana-in-fire.jpg</code>
+  </div></div>
+
+  <div class="step"><div class="step-num">5</div><div class="step-body">
+    Clique em <strong>"Commit changes"</strong> → o site atualiza em ~30 segundos
+  </div></div>
+
+  <div class="card success">
+    <p><span class="emoji">💡</span> <strong>Onde baixar imagens de qualidade:</strong></p>
+    <ul>
+      <li><a href="https://mydramalist.com" target="_blank">MyDramaList</a> — clique no drama → clique no poster → clique direito → "Salvar imagem como"</li>
+      <li><a href="https://www.themoviedb.org" target="_blank">TMDB</a> — pesquise o drama → clique em "Imagens" → escolha um backdrop (16:9)</li>
+      <li><strong>Google Imagens</strong> — pesquise <code>"NOME DO DRAMA" poster official</code> → Ferramentas → Tamanho → Grande</li>
+    </ul>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <h2 id="videos">🎞️ 3. Como Adicionar Novos Vídeos ao Catálogo</h2>
+
+  <div class="card">
+    <p>O catálogo fica no arquivo <code>js/catalog.js</code> no GitHub. Para editar:</p>
+    <div class="step"><div class="step-num">1</div><div class="step-body">
+      Acesse <a href="https://github.com/ossluz/Dramaluxe/blob/main/js/catalog.js" target="_blank">github.com/ossluz/Dramaluxe → js/catalog.js</a>
+    </div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body">
+      Clique no lápis ✏️ no canto superior direito para editar
+    </div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body">
+      Cole o código do novo item (use os modelos abaixo)
+    </div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body">
+      Clique em <strong>"Commit changes"</strong>
+    </div></div>
+  </div>
+
+  <h3>Como pegar o ID de um vídeo do YouTube</h3>
+  <div class="card">
+    <p>Na URL do YouTube: <code>https://www.youtube.com/watch?v=<span class="highlight">Bsa_Ur3m0hA</span></code></p>
+    <p>O ID é a parte após <code>v=</code> — neste exemplo: <code class="highlight">Bsa_Ur3m0hA</code></p>
+    <p>Para playlists de episódios, pegue o ID de cada vídeo individual (cada episódio).</p>
+  </div>
+
+  <h3>Campos obrigatórios explicados</h3>
+  <table>
+    <tr><th>Campo</th><th>Valores aceitos</th><th>Exemplo</th></tr>
+    <tr><td><code>region</code></td><td>c-drama, k-drama, j-drama, thai-drama</td><td><code>'c-drama'</code></td></tr>
+    <tr><td><code>genre</code></td><td>romance, fantasy, action, comedy, drama</td><td><code>'action'</code></td></tr>
+    <tr><td><code>audio</code></td><td>dubbed = dublado PT-BR, subbed = legendado</td><td><code>'dubbed'</code></td></tr>
+    <tr><td><code>year</code></td><td>Número (sem aspas)</td><td><code>2024</code></td></tr>
+    <tr><td><code>rating</code></td><td>Número entre aspas</td><td><code>'8.5'</code></td></tr>
+    <tr><td><code>featured</code></td><td>true = aparece no banner principal</td><td><code>true</code></td></tr>
+    <tr><td><code>thumb</code></td><td>Caminho da imagem na pasta thumbs</td><td><code>'assets/thumbs/meu-drama.jpg'</code></td></tr>
+  </table>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <h2 id="template-serie">📺 4. Modelo Pronto — Nova Série</h2>
+
+  <div class="card">
+    <p>Cole este modelo dentro do array <code>series: [</code> em <code>catalog.js</code>, junto com as outras séries:</p>
+  </div>
+
+  <pre>
+<span class="comment">/* Cole dentro de  series: [ ... ]  */</span>
+{
+  <span class="key">key</span>:<span class="str">'minha-nova-serie'</span>,              <span class="comment">// ID único, sem espaços, use hífen</span>
+  <span class="key">title</span>:<span class="str">'Nome em Português'</span>,
+  <span class="key">titleOriginal</span>:<span class="str">'Nome Original / 标题'</span>,
+  <span class="key">region</span>:<span class="str">'c-drama'</span>,                      <span class="comment">// c-drama | k-drama | j-drama | thai-drama</span>
+  <span class="key">genre</span>:<span class="str">'romance'</span>,                     <span class="comment">// romance | fantasy | action | comedy | drama</span>
+  <span class="key">audio</span>:<span class="str">'dubbed'</span>,                      <span class="comment">// dubbed = dublado | subbed = legendado</span>
+  <span class="key">year</span>:<span class="val">2024</span>,
+  <span class="key">cast</span>:<span class="str">'Ator Principal, Atriz Principal'</span>,
+  <span class="key">rating</span>:<span class="str">'8.5'</span>,
+  <span class="key">featured</span>:<span class="val">false</span>,                      <span class="comment">// true = aparece no banner, false = só nos cards</span>
+  <span class="key">desc</span>:<span class="str">'Descrição do drama em português. Máximo 2 frases. Informe se é dublado ou legendado no final.'</span>,
+  <span class="key">thumb</span>:<span class="str">'assets/thumbs/minha-nova-serie.jpg'</span>, <span class="comment">// nome do arquivo de imagem</span>
+  <span class="key">episodes</span>:[
+    <span class="str">'ID_EP1_YOUTUBE'</span>,   <span class="comment">// ID do episódio 1</span>
+    <span class="str">'ID_EP2_YOUTUBE'</span>,   <span class="comment">// ID do episódio 2</span>
+    <span class="str">'ID_EP3_YOUTUBE'</span>,   <span class="comment">// ... continue para todos os episódios</span>
+  ],
+},</pre>
+
+  <h3>Exemplo real preenchido — Série de Artes Marciais</h3>
+  <pre>
+{
+  <span class="key">key</span>:<span class="str">'lenda-do-condor'</span>,
+  <span class="key">title</span>:<span class="str">'A Lenda do Herói Condor'</span>,
+  <span class="key">titleOriginal</span>:<span class="str">'The Legend of the Condor Heroes / 射雕英雄传'</span>,
+  <span class="key">region</span>:<span class="str">'c-drama'</span>,
+  <span class="key">genre</span>:<span class="str">'action'</span>,
+  <span class="key">audio</span>:<span class="str">'subbed'</span>,
+  <span class="key">year</span>:<span class="val">2017</span>,
+  <span class="key">cast</span>:<span class="str">'Yang Xu Wen, Li Yi Tong'</span>,
+  <span class="key">rating</span>:<span class="str">'8.2'</span>,
+  <span class="key">featured</span>:<span class="val">false</span>,
+  <span class="key">desc</span>:<span class="str">'O jovem Guo Jing treina kung fu com os Sete Mestres do Norte para vingar seu pai e proteger seu país. Baseado no clássico romance de Jin Yong. Legendado PT-BR.'</span>,
+  <span class="key">thumb</span>:<span class="str">'assets/thumbs/lenda-do-condor.jpg'</span>,
+  <span class="key">episodes</span>:[
+    <span class="str">'ABC123xyz01'</span>,
+    <span class="str">'ABC123xyz02'</span>,
+    <span class="str">'ABC123xyz03'</span>,
+  ],
+},</pre>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <h2 id="template-filme">🎬 5. Modelo Pronto — Novo Filme</h2>
+
+  <div class="card">
+    <p>Cole este modelo dentro do array <code>movies: [</code> em <code>catalog.js</code>:</p>
+  </div>
+
+  <pre>
+<span class="comment">/* Cole dentro de  movies: [ ... ]  */</span>
+{
+  <span class="key">platform</span>:<span class="str">'youtube'</span>,              <span class="comment">// sempre youtube para filmes</span>
+  <span class="key">id</span>:<span class="str">'ID_DO_VIDEO_YOUTUBE'</span>,       <span class="comment">// ID do vídeo (parte após v= na URL)</span>
+  <span class="key">thumb</span>:<span class="str">'assets/thumbs/meu-filme.jpg'</span>,
+  <span class="key">audio</span>:<span class="str">'dubbed'</span>,                 <span class="comment">// dubbed = dublado | subbed = legendado</span>
+  <span class="key">title</span>:<span class="str">'Nome do Filme em Português'</span>,
+  <span class="key">region</span>:<span class="str">'k-drama'</span>,               <span class="comment">// c-drama | k-drama | j-drama | thai-drama</span>
+  <span class="key">genre</span>:<span class="str">'action'</span>,
+  <span class="key">year</span>:<span class="val">2024</span>,
+  <span class="key">cast</span>:<span class="str">'Ator 1, Ator 2'</span>,
+  <span class="key">rating</span>:<span class="str">'7.8'</span>,
+  <span class="key">desc</span>:<span class="str">'Descrição curta do filme. Informe se é dublado ou legendado.'</span>,
+},</pre>
+
+  <h3>Exemplo real preenchido — Filme de Kung Fu</h3>
+  <pre>
+{
+  <span class="key">platform</span>:<span class="str">'youtube'</span>,
+  <span class="key">id</span>:<span class="str">'xK9eKb0tXkI'</span>,
+  <span class="key">thumb</span>:<span class="str">'assets/thumbs/filme-ip-man-4.jpg'</span>,
+  <span class="key">audio</span>:<span class="str">'dubbed'</span>,
+  <span class="key">title</span>:<span class="str">'Ip Man 4 — O Fim (Dublado)'</span>,
+  <span class="key">region</span>:<span class="str">'c-drama'</span>,
+  <span class="key">genre</span>:<span class="str">'action'</span>,
+  <span class="key">year</span>:<span class="val">2019</span>,
+  <span class="key">cast</span>:<span class="str">'Donnie Yen, Scott Adkins'</span>,
+  <span class="key">rating</span>:<span class="str">'7.1'</span>,
+  <span class="key">desc</span>:<span class="str">'Ip Man vai para os EUA para matricular o filho numa escola americana e enfrenta o racismo anti-chinês, culminando no combate final da saga. Dublado PT-BR.'</span>,
+},</pre>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <h2 id="publish">🚀 6. Como Publicar no GitHub</h2>
+
+  <div class="card">
+    <div class="step"><div class="step-num">1</div><div class="step-body">
+      Acesse <a href="https://github.com/ossluz/Dramaluxe" target="_blank">github.com/ossluz/Dramaluxe</a>
+    </div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body">
+      Para editar o catálogo: clique em <code>js</code> → <code>catalog.js</code> → ícone de lápis ✏️
+    </div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body">
+      Para adicionar imagens: clique em <code>assets</code> → <code>thumbs</code> → <strong>Add file → Upload files</strong>
+    </div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body">
+      Após qualquer alteração, clique em <strong>"Commit changes"</strong>
+    </div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-body">
+      Aguarde ~30 segundos e acesse <a href="https://ossluz.github.io/Dramaluxe/" target="_blank">ossluz.github.io/Dramaluxe/</a> para ver as mudanças
+    </div></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <h2 id="checklist">✅ 7. Checklist Rápido — Ao Adicionar Novo Conteúdo</h2>
+
+  <div class="card success">
+    <p><strong>Para cada novo drama/filme que você quiser adicionar:</strong></p>
+    <ul>
+      <li>☐ Verificar se é <span class="green">romance heterossexual</span> ou <span class="green">ação/artes marciais</span></li>
+      <li>☐ Verificar se tem áudio em PT-BR (dublado ou legendado)</li>
+      <li>☐ Copiar o modelo de série ou filme acima</li>
+      <li>☐ Preencher todos os campos (<code>key</code>, <code>title</code>, <code>region</code>, <code>genre</code>, <code>audio</code>, <code>year</code>, <code>cast</code>, <code>rating</code>, <code>desc</code>, <code>thumb</code>)</li>
+      <li>☐ Pegar os IDs dos episódios/filme no YouTube</li>
+      <li>☐ Baixar a imagem do poster (320×180px) e nomeá-la igual ao campo <code>thumb</code></li>
+      <li>☐ Subir a imagem em <code>assets/thumbs/</code> no GitHub</li>
+      <li>☐ Colar o código no <code>catalog.js</code> e commitar</li>
+    </ul>
+  </div>
+
+  <div class="card warning">
+    <p><span class="emoji">⚠️</span> <strong>Regras importantes:</strong></p>
+    <ul>
+      <li>O campo <code>key</code> deve ser <span class="red">único</span> — nenhum outro drama pode ter o mesmo</li>
+      <li>Sempre termine o bloco com <code>},</code> (vírgula no final)</li>
+      <li>Use apenas <span class="highlight">aspas simples</span> <code>'assim'</code>, nunca duplas <code>"assim"</code></li>
+      <li>O nome do arquivo de imagem deve bater <span class="highlight">exatamente</span> com o campo <code>thumb</code></li>
+      <li>Para <code>year</code> e <code>featured</code> — <span class="highlight">sem aspas</span></li>
+    </ul>
+  </div>
+
+  <hr class="divider">
+  <p style="text-align:center; color:#4b5563; font-size:0.85rem;">DramaLuxe — Site: <a href="https://ossluz.github.io/Dramaluxe/" target="_blank">ossluz.github.io/Dramaluxe</a> · Repositório: <a href="https://github.com/ossluz/Dramaluxe" target="_blank">github.com/ossluz/Dramaluxe</a></p>
+
+</div>
+</body>
+</html>
